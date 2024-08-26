@@ -25,20 +25,16 @@ const formSchema = z.object({
 
 type UserFormValue = z.infer<typeof formSchema>;
 
-export default function UserAuthForm() {
+export default function UserAuthFormSignUp() {
   // const searchParams = useSearchParams();
   // const callbackUrl = searchParams.get('callbackUrl');
   const [loading, setLoading] = useState(false);
-  const defaultValues = {
-    email: 'demo@gmail.com'
-  };
   const form = useForm<UserFormValue>({
-    resolver: zodResolver(formSchema),
-    defaultValues
+    resolver: zodResolver(formSchema)
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    login({
+    signup({
       email: data.email,
       password: data.password
     });
@@ -88,7 +84,7 @@ export default function UserAuthForm() {
             )}
           />
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Continue With Email
+            Sign Up
           </Button>
         </form>
       </Form>
