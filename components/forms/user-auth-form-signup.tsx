@@ -10,33 +10,51 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { signIn } from 'next-auth/react';
-import { login, signup } from '@/app/actions';
-// import { useSearchParams } from 'next/navigation';
+import { signup } from '@/app/actions';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-// import GithubSignInButton from '../github-auth-button';
-
-const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' }),
-  password: z.string()
-});
-
-type UserFormValue = z.infer<typeof formSchema>;
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 export default function UserAuthFormSignUp() {
-  // const searchParams = useSearchParams();
-  // const callbackUrl = searchParams.get('callbackUrl');
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const formSchema = z
+    .object({
+      email: z.string().email({ message: 'Enter a valid email address' }),
+      password: z.string(),
+      repassword: z.string(),
+      passwordStrength: z.number()
+    })
+    .refine(() => passwordStrength >= 2, {
+      message: 'Use Stronger Password',
+      path: ['password']
+    })
+
+    .refine((data) => data.password === data.repassword, {
+      message: 'Passwords do not match',
+      path: ['repassword']
+    });
+
+  type UserFormValue = z.infer<typeof formSchema>;
+
   const form = useForm<UserFormValue>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      passwordStrength: passwordStrength
+    }
   });
+
+  const onStrengthChange = (data: any) => {
+    console.log(data);
+  };
 
   const onSubmit = async (data: UserFormValue) => {
     signup({
       email: data.email,
-      password: data.password
+      password: data.password,
+      repassword: data.repassword
     });
   };
 
@@ -75,6 +93,30 @@ export default function UserAuthFormSignUp() {
                   <Input
                     type="password"
                     placeholder="Enter your password..."
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                <PasswordStrengthBar
+                  onChangeScore={(score) => setPasswordStrength(score)}
+                  password={form.control._formValues['password']}
+                  minLength={8}
+                />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="repassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Passowrd Confirmation</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Type your password here again ..."
                     disabled={loading}
                     {...field}
                   />
