@@ -8,6 +8,7 @@ import { createClient } from '@/utils/supabase/server';
 type LoginSignUpData = {
   email: string;
   password: string;
+  repassword: string;
 };
 
 export async function login(formData: LoginSignUpData) {
