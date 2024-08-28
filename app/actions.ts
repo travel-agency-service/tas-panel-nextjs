@@ -11,7 +11,12 @@ type LoginSignUpData = {
   repassword: string;
 };
 
-export async function login(formData: LoginSignUpData) {
+type LoginSigninData = {
+  email: string;
+  password: string;
+};
+
+export async function login(formData: LoginSigninData) {
   const supabase = createClient();
 
   // type-casting here for convenience
