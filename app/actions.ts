@@ -8,9 +8,15 @@ import { createClient } from '@/utils/supabase/server';
 type LoginSignUpData = {
   email: string;
   password: string;
+  repassword: string;
 };
 
-export async function login(formData: LoginSignUpData) {
+type LoginSigninData = {
+  email: string;
+  password: string;
+};
+
+export async function login(formData: LoginSigninData) {
   const supabase = createClient();
 
   // type-casting here for convenience
@@ -23,7 +29,7 @@ export async function login(formData: LoginSignUpData) {
   const { data, error } = await supabase.auth.signInWithPassword(formData);
 
   if (error) {
-    redirect('/not-found');
+    redirect('/');
   }
 
   revalidatePath('/dashboard', 'layout');
@@ -35,17 +41,17 @@ export async function signup(formData: LoginSignUpData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
-    email: formData.email,
-    password: formData.password
-  };
+  // const data = {
+  //   email: formData.email,
+  //   password: formData.password
+  // };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { error } = await supabase.auth.signUp(formData);
 
   if (error) {
-    redirect('/error');
+    redirect('/signup?signup=0');
   }
 
-  revalidatePath('/', 'layout');
-  redirect('/');
+  revalidatePath('/signin?signup=1', 'layout');
+  redirect('/signin?signup=1');
 }
