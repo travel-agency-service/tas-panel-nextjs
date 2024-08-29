@@ -11,6 +11,14 @@ type LoginSignUpData = {
   repassword: string;
 };
 
+export type SignUpErrorsType = 'UNUSABLE_EMAIL' | 'UNKNOWN';
+
+const validateSignUpCode = (code: string | undefined): SignUpErrorsType => {
+  if (code && code === 'user_already_exists') return 'UNUSABLE_EMAIL';
+
+  return 'UNKNOWN';
+};
+
 export async function login(formData: LoginSignUpData) {
   const supabase = createClient();
 
@@ -31,7 +39,7 @@ export async function login(formData: LoginSignUpData) {
   redirect('/dashboard');
 }
 
-export async function signup(formData: LoginSignUpData) {
+export async function signup(formData: LoginSignUpData): Promise<any> {
   const supabase = createClient();
 
   // type-casting here for convenience
@@ -44,7 +52,8 @@ export async function signup(formData: LoginSignUpData) {
   const { error } = await supabase.auth.signUp(formData);
 
   if (error) {
-    redirect('/signup?signup=0');
+    const signUpCode = validateSignUpCode(error.code);
+    return redirect(`/signup?signup=0&code=${signUpCode}`);
   }
 
   revalidatePath('/signin?signup=1', 'layout');
