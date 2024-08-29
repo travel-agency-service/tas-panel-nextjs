@@ -55,7 +55,7 @@ export default function AuthenticationPageSignIn({
           <UserAuthFormSignIn />
 
           <p className="px-8 text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
+            {"Don't have an account?"}{' '}
             <Link
               href="/signup"
               className="underline underline-offset-4 hover:text-primary"

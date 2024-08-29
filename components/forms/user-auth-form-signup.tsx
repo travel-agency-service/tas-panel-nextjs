@@ -46,10 +46,6 @@ export default function UserAuthFormSignUp() {
     }
   });
 
-  const onStrengthChange = (data: any) => {
-    console.log(data);
-  };
-
   const onSubmit = async (data: UserFormValue) => {
     signup({
       email: data.email,
@@ -106,7 +102,6 @@ export default function UserAuthFormSignUp() {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="repassword"
