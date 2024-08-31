@@ -27,14 +27,14 @@ export default function page() {
     <PageContainer scrollable={true}>
       <div className="space-y-5">
         <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">Students</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Document Translation
+          </h2>
           <div className="hidden items-center space-x-2 md:flex">
             <CalendarDateRangePicker />
           </div>
         </div>
-        <small>
-          In here you can find tools witch are designed to help students
-        </small>
+        <small>{'Proceed by following the workflow.'}</small>
 
         <Breadcrumb>
           <BreadcrumbList>
@@ -45,16 +45,22 @@ export default function page() {
               <SlashIcon />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbPage>Students</BreadcrumbPage>
+              <BreadcrumbPage>Italy</BreadcrumbPage>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator>
+              <SlashIcon />
+            </BreadcrumbSeparator>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Document Translation</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <Card className="w-[250px]">
+        <Card className="w-[270px]">
           <CardHeader>
             <CardTitle>
               <div className="flex items-center justify-between">
-                <h3>Translate Your documents</h3>
+                <h3>Upload your passport scans</h3>
               </div>
             </CardTitle>
             <CardDescription></CardDescription>
@@ -65,7 +71,7 @@ export default function page() {
           <CardFooter className="flex justify-center">
             <Link href="students/translate">
               <Button>
-                Start Translating
+                Start
                 <EnterIcon style={{ marginLeft: 10 }}></EnterIcon>
               </Button>
             </Link>
