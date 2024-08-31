@@ -52,7 +52,7 @@ export function getMenuList(pathname: string): Group[] {
           submenus: [
             {
               href: '/dashboard/students',
-              label: 'Passport OCR',
+              label: 'Document Translation',
               active: pathname === '/dashboard/students'
             }
           ]
