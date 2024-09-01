@@ -77,7 +77,7 @@ export const StudentsTransfer = () => {
     files?.forEach((file) => {
       const formData = new FormData();
 
-      formData.append('prompt_type', '1');
+      formData.append('prompt_type', '3');
       formData.append('files', file);
 
       fetch('https://api.hobs.ai/student/submit-documents', {
