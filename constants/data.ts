@@ -122,11 +122,11 @@ export const navItems: NavItem[] = [
     href: '/dashboard/students',
     icon: 'user',
     label: 'user'
-  },
-  {
-    title: 'Profile',
-    href: '/dashboard/profile',
-    icon: 'profile',
-    label: 'profile'
   }
+  // {
+  //   title: 'Profile',
+  //   href: '/dashboard/profile',
+  //   icon: 'profile',
+  //   label: 'profile'
+  // }
 ];

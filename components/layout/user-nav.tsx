@@ -12,24 +12,23 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { useEffect, useState } from 'react';
-import { Session } from '@supabase/supabase-js';
+import { Session, UserResponse } from '@supabase/supabase-js';
 
 // import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 
-export function UserNav() {
-  const [user_session, setUserSession] = useState<Session | null>(null);
-  const supabase = createClient();
+interface usertype {
+  user: UserResponse;
+}
+
+export function UserNav(userdata: usertype) {
+  const [user_session, setUserSession] = useState<UserResponse | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      const {
-        data: { session }
-      } = await supabase.auth.getSession();
-
-      if (session) {
-        setUserSession(session);
+      if (userdata.user) {
+        setUserSession(userdata.user);
       }
     };
 
@@ -49,8 +48,10 @@ export function UserNav() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user_session.user?.email ?? ''} />
-              <AvatarFallback>{user_session.user?.email?.[0]}</AvatarFallback>
+              <AvatarImage src={user_session.data?.user?.email ?? ''} />
+              <AvatarFallback>
+                {user_session.data?.user?.email?.[0]}
+              </AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -58,10 +59,10 @@ export function UserNav() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {user_session.user?.email}
+                {user_session.data?.user?.email}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {user_session.user?.email}
+                {user_session.data?.user?.email}
               </p>
             </div>
           </DropdownMenuLabel>
@@ -81,7 +82,6 @@ export function UserNav() {
               Settings
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => signOut()}>
