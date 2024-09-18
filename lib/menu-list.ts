@@ -5,7 +5,8 @@ import {
   Bookmark,
   SquarePen,
   LayoutGrid,
-  LucideIcon
+  LucideIcon,
+  Archive
 } from 'lucide-react';
 
 type Submenu = {
@@ -42,20 +43,37 @@ export function getMenuList(pathname: string): Group[] {
       ]
     },
     {
-      groupLabel: 'Workflows',
+      groupLabel: 'Services',
       menus: [
         {
           href: '',
-          label: 'Italy',
-          active: pathname.includes('/posts'),
+          label: 'Cases',
+          active: pathname.includes('new-case'),
           icon: SquarePen,
           submenus: [
             {
-              href: '/dashboard/students',
-              label: 'Document Translation',
-              active: pathname === '/dashboard/students'
+              href: '/services/new-case',
+              label: 'New Case',
+              active: pathname === '/services/new-case'
+            },
+            {
+              href: '/services/upload-documents',
+              label: 'Upload Documents',
+              active: pathname === '/services/upload-documents'
+            },
+            {
+              href: '/services/edit-case',
+              label: 'Edit Case',
+              active: pathname === '/services/edit-case'
             }
           ]
+        },
+        {
+          href: '/services/case-archive',
+          label: 'Archive',
+          active: pathname.includes('/services/case-archive'),
+          icon: Archive,
+          submenus: []
         }
       ]
     },
