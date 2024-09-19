@@ -27,10 +27,10 @@ export default async function RootLayout({
         suppressHydrationWarning={true}
       >
         <NextTopLoader showSpinner={false} />
-        {/* <Providers session={session}> */}
-        <Toaster />
-        {children}
-        {/* </Providers> */}
+        <Providers>
+          <Toaster />
+          {children}
+        </Providers>
       </body>
     </html>
   );

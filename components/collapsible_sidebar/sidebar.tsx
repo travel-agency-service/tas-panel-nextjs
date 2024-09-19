@@ -31,10 +31,10 @@ export function Sidebar() {
           asChild
         >
           <Link href="/dashboard" className="flex items-center gap-2">
-            <PlaneTakeoff className="mr-2 h-9 w-9 rounded-lg border-secondary from-primary via-primary/70 to-primary text-black" />
+            <PlaneTakeoff className="mr-2 h-9 w-9 rounded-lg border-secondary from-primary via-primary/70 to-primary text-black dark:text-white" />
             <h1
               className={cn(
-                'whitespace-nowrap text-lg font-bold text-black transition-[transform,opacity,display] duration-300 ease-in-out',
+                'whitespace-nowrap text-lg font-bold text-black transition-[transform,opacity,display] duration-300 ease-in-out dark:text-white',
                 sidebar?.isOpen === false
                   ? 'hidden -translate-x-96 opacity-0'
                   : 'translate-x-0 opacity-100'

@@ -1,5 +1,3 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -35,32 +33,38 @@ import {
 } from '@/components/ui/breadcrumb';
 import { EnterIcon, SlashIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import NewCaseForm from '@/components/new-case-form';
+import NewCaseModal from '@/components/new-case-modal';
+import { DataTable } from './data-table';
+import { Case, columns } from './columns';
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.'
-  })
-});
-
-export default function Page() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: ''
+async function getData(): Promise<Case[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: '1',
+      name: 'case#1',
+      country: 'italy',
+      visa: 'student'
     }
-  });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+    // ...
+  ];
+}
+
+export default async function Page() {
+  const data = await getData();
+
   return (
     <PageContainer scrollable={true}>
       <div className="space-y-5">
         <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">New Case</h2>
+          <h2 className="text-2xl font-bold tracking-tight">
+            Select/Create Case
+          </h2>
         </div>
-        <small>{'Proceed by filling the form.'}</small>
+        <small>
+          {'Select an existing case from the table below or create a new one.'}
+        </small>
 
         <Breadcrumb>
           <BreadcrumbList>
@@ -88,49 +92,8 @@ export default function Page() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <>
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Case no #1" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      A unique name for the case
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-
-                  <FormItem>
-                    <FormLabel>Case Type: Country</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Italy" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Choose the destination country.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-
-                  <FormItem>
-                    <FormLabel>Case Type: Visa</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Student Visa" {...field} />
-                    </FormControl>
-                    <FormDescription>Choose the visa type.</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                </>
-              )}
-            />
-            <Button type="submit">Create Case</Button>
-          </form>
-        </Form>
+        <NewCaseModal />
+        <DataTable columns={columns} data={data} />
       </div>
     </PageContainer>
   );
