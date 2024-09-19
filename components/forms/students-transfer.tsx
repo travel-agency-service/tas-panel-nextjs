@@ -126,34 +126,40 @@ export const StudentsTransfer = () => {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-2xl font-bold tracking-tight">
-          Translate Documents
-        </h2>
+        <h2 className="text-2xl font-bold tracking-tight">Upload Passports</h2>
         <div className="hidden items-center space-x-2 md:flex">
           <CalendarDateRangePicker />
         </div>
       </div>
-      <small>
-        You Can translate your documents using our Amazing AI tools, trained and
-        developed for special needs.
-      </small>
 
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/dashboard">Home</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
             <SlashIcon />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/students">Students</BreadcrumbLink>
+            <BreadcrumbPage>Services</BreadcrumbPage>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
             <SlashIcon />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbPage>Translate</BreadcrumbPage>
+            <BreadcrumbLink>Cases</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <SlashIcon />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbPage>Upload Documents</BreadcrumbPage>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <SlashIcon />
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbPage>Passports</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

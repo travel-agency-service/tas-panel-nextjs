@@ -54,17 +54,17 @@ export function getMenuList(pathname: string): Group[] {
             {
               href: '/services/new-case',
               label: 'New Case',
-              active: pathname === '/services/new-case'
+              active: pathname === '/services/cases/new-case'
             },
             {
               href: '/services/upload-documents',
               label: 'Upload Documents',
-              active: pathname === '/services/upload-documents'
+              active: pathname === '/services/cases/upload-documents'
             },
             {
               href: '/services/edit-case',
               label: 'Edit Case',
-              active: pathname === '/services/edit-case'
+              active: pathname === '/services/cases/edit-case'
             }
           ]
         },
