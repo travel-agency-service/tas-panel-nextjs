@@ -22,7 +22,7 @@ import {
 import { EnterIcon, SlashIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
-export default function page() {
+export default function Page() {
   return (
     <PageContainer scrollable={true}>
       <div className="space-y-5">
