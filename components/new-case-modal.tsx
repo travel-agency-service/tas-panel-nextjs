@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogClose,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -14,13 +15,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import NewCaseForm from '@/components/new-case-form';
+import axios from 'axios';
 
 export default function NewCaseModal() {
-  function onSubmit(values) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -32,6 +29,11 @@ export default function NewCaseModal() {
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <NewCaseForm />
+        <DialogClose asChild>
+          <Button type="button" variant="secondary">
+            Close
+          </Button>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

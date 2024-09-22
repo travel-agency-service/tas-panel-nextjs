@@ -1,3 +1,4 @@
+//@ts-nocheck
 'use client';
 
 import {
@@ -20,6 +21,15 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
+
+export const UUIDToLocalStorage = (e) => {
+  localStorage.setItem('selected_case', e.currentTarget.value.split('|')[0]);
+  localStorage.setItem(
+    'selected_case_uuid',
+    e.currentTarget.value.split('|')[1]
+  );
+  window.dispatchEvent(new Event('storage'));
+};
 
 export function DataTable<TData, TValue>({
   columns,

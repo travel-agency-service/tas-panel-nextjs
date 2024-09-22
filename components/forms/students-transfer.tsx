@@ -68,7 +68,7 @@ export const StudentsTransfer = () => {
   const dropZoneConfig = {
     maxFiles: 5,
     maxSize: 1024 * 1024 * 4,
-    multiple: true
+    multiple: false
   };
 
   const translateDocuments = async () => {
@@ -76,11 +76,12 @@ export const StudentsTransfer = () => {
 
     files?.forEach((file) => {
       const formData = new FormData();
+      const case_id = localStorage.getItem('selected_case_uuid')!;
+      const case_id_user_friendly = localStorage.getItem('selected_case')!;
+      formData.append('case_id', case_id);
+      formData.append('file', file);
 
-      formData.append('prompt_type', '3');
-      formData.append('files', file);
-
-      fetch('https://api.hobs.ai/student/submit-documents', {
+      fetch('https://api.hobs.ai/services/cases/upload-document', {
         method: 'POST',
         body: formData
       })
@@ -89,8 +90,8 @@ export const StudentsTransfer = () => {
         })
         .then((response) => {
           toast({
-            title: 'Translation Succeed !',
-            description: `File ${file.name} Translated`
+            title: 'Success!',
+            description: `File ${file.name} Uploaded`
           });
 
           files.splice(files.indexOf(file), 1);
@@ -100,13 +101,12 @@ export const StudentsTransfer = () => {
             setFiles(null);
             toast({
               color: 'green',
-              title: 'All files are translated !',
-              description: 'You can find your files in table below'
+              title: 'The file has been uploaded successfully.'
             });
 
-            const filename = Object.keys(response['file_URLS']).at(0) as string;
-            const url = response['file_URLS'][filename];
-            const file = { filename, url };
+            const filename = Object.keys(response['result']).at(0) as string;
+            const url = response['result'][filename];
+            const file = { filename, url, case_id_user_friendly };
 
             setValue([...localstorageTranslatedFiles, file]);
           }
@@ -114,8 +114,8 @@ export const StudentsTransfer = () => {
         .catch((error) => {
           toast({
             variant: 'destructive',
-            title: 'Not translated !',
-            description: 'File is not translated, try again'
+            title: 'Error',
+            description: 'Please try again'
           });
           setUploadingState(false);
           console.log(error);
@@ -126,10 +126,9 @@ export const StudentsTransfer = () => {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-2xl font-bold tracking-tight">Upload Passports</h2>
-        <div className="hidden items-center space-x-2 md:flex">
-          <CalendarDateRangePicker />
-        </div>
+        <h2 className="text-2xl font-bold tracking-tight">
+          Upload Passport Scan
+        </h2>
       </div>
 
       <Breadcrumb>
@@ -159,7 +158,7 @@ export const StudentsTransfer = () => {
             <SlashIcon />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbPage>Passports</BreadcrumbPage>
+            <BreadcrumbPage>Passport Scan</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -172,8 +171,7 @@ export const StudentsTransfer = () => {
         >
           {!isUploading ? (
             <>
-              <UploadIcon className="pd-2 h-4 w-4"></UploadIcon> Translate
-              Selected files{' '}
+              <UploadIcon className="pd-2 h-4 w-4"></UploadIcon> Upload file{' '}
             </>
           ) : (
             ''

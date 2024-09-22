@@ -29,6 +29,10 @@ export const columns: ColumnDef<User>[] = [
     header: 'File Name'
   },
   {
+    accessorKey: 'case_id',
+    header: 'CASE'
+  },
+  {
     id: 'actions',
     cell: ({ row }) => <CellAction data={row.original} />
   }

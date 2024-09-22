@@ -37,22 +37,18 @@ import NewCaseForm from '@/components/new-case-form';
 import NewCaseModal from '@/components/new-case-modal';
 import { DataTable } from './data-table';
 import { Case, columns } from './columns';
-
-async function getData(): Promise<Case[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: '1',
-      name: 'case#1',
-      country: 'italy',
-      visa: 'student'
-    }
-    // ...
-  ];
-}
+import { createClient } from '@/utils/supabase/client';
+import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js';
 
 export default async function Page() {
-  const data = await getData();
+  const supabase = await createClient('tasapi');
+  const CasesQuery = supabase
+    .from('case')
+    .select(`id, uuid, name, country, visa_type, datetime_added`);
+  type Cases = QueryData<typeof CasesQuery>;
+  const { data, error } = await CasesQuery;
+  if (error) throw error;
+  const cases: Cases = data;
 
   return (
     <PageContainer scrollable={true}>
@@ -93,7 +89,7 @@ export default async function Page() {
         </Breadcrumb>
 
         <NewCaseModal />
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={cases} />
       </div>
     </PageContainer>
   );

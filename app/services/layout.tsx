@@ -1,4 +1,5 @@
 import Header from '@/components/layout/header';
+import CurrentCase from '@/components/layout/current-case';
 // import Sidebar from '@/components/layout/sidebar';
 import AdminPanelLayout from '@/components/collapsible_sidebar/admin-panel-layout';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -17,7 +18,7 @@ export default function DashboardLayout({
   return (
     <AdminPanelLayout>
       <Header />
-
+      <CurrentCase />
       {children}
     </AdminPanelLayout>
   );

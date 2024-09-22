@@ -101,50 +101,6 @@ export default function page() {
               </Link>
             </CardFooter>
           </Card>
-
-          <Card className="w-[270px]">
-            <CardHeader>
-              <CardTitle>
-                <div className="flex items-center justify-center">
-                  <h3>Upload Affidavit</h3>
-                </div>
-              </CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent>
-              <img src="https://cdn-icons-png.flaticon.com/512/3263/3263116.png"></img>
-            </CardContent>
-            <CardFooter className="flex justify-center">
-              <Link href="/services/upload-documents/affidavit">
-                <Button>
-                  Start
-                  <EnterIcon style={{ marginLeft: 10 }}></EnterIcon>
-                </Button>
-              </Link>
-            </CardFooter>
-          </Card>
-
-          <Card className="w-[270px]">
-            <CardHeader>
-              <CardTitle>
-                <div className="flex items-center justify-center">
-                  <h3>Upload ID</h3>
-                </div>
-              </CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent>
-              <img src="https://cdn-icons-png.flaticon.com/512/3263/3263116.png"></img>
-            </CardContent>
-            <CardFooter className="flex justify-center">
-              <Link href="/services/upload-documents/ID">
-                <Button>
-                  Start
-                  <EnterIcon style={{ marginLeft: 10 }}></EnterIcon>
-                </Button>
-              </Link>
-            </CardFooter>
-          </Card>
         </div>
       </div>
     </PageContainer>
