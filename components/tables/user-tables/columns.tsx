@@ -29,7 +29,7 @@ export const columns: ColumnDef<User>[] = [
     header: 'File Name'
   },
   {
-    accessorKey: 'case_id',
+    accessorKey: 'case_id_user_friendly',
     header: 'CASE'
   },
   {
